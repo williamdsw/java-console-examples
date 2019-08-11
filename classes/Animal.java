@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package classes;
 
 /**
- *
  * @author William
  */
 public interface Animal
 {
+    //--------------------------------------------------------------------------------------//
+    // GETTERS / SETTERS 
+    
     public String getSpecies ();
     public Integer getAge ();
     public Double getHeight ();

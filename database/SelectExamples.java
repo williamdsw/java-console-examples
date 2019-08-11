@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,16 @@ import java.util.List;
 public class SelectExamples
 {
     private final Connection CONNECTION;
+    
+    //--------------------------------------------------------------------------------------//
+    // CONSTRUCTORS
 
     public SelectExamples ()
     {
         CONNECTION = new ConnectionExample ().getConnection ();
     }
+    
+    //--------------------------------------------------------------------------------------//
 
     /**
      * Select all records
@@ -28,19 +32,19 @@ public class SelectExamples
     public List<Team> selectAll () throws SQLException
     {
         List<Team> teams = new ArrayList<> ();
+        
+        // SQL
+        StringBuilder query = new StringBuilder ();
+        query.append (" SELECT * FROM team ");
 
-        /* SQL */
-        String query = " SELECT * FROM team ";
-
-        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement (query))
+        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement (query.toString ()))
         {
             try (ResultSet resultSet = preparedStatement.executeQuery ())
             {
                 while (resultSet.next ())
                 {
+                    // Fills
                     Team team = new Team ();
-
-                    /* Fills */
                     team.setID (resultSet.getInt ("id"));
                     team.setName (resultSet.getString ("name"));
                     team.setCity (resultSet.getString ("city"));
@@ -48,7 +52,6 @@ public class SelectExamples
                     team.setYearFoundation (resultSet.getInt ("year_foundation"));
                     team.setStadium (resultSet.getString ("stadium"));
                     team.setLastChanged (resultSet.getTimestamp ("last_changed"));
-
                     teams.add (team);
                 }
             }
@@ -73,11 +76,12 @@ public class SelectExamples
     public Integer selectCount () throws SQLException
     {
         Integer count = 0;
+        
+        // SQL
+        StringBuilder query = new StringBuilder ();
+        query.append (" SELECT COUNT (*) AS count FROM team ");
 
-        /* SQL */
-        String query = " SELECT COUNT (*) AS count FROM team ";
-
-        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement (query))
+        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement (query.toString ()))
         {
             try (ResultSet resultSet = preparedStatement.executeQuery ())
             {
@@ -108,12 +112,13 @@ public class SelectExamples
     public Team selectById (Integer id) throws SQLException
     {
         Team team = null;
+        
+        // SQL
+        StringBuilder query = new StringBuilder ();
+        query.append (" SELECT * FROM team ");
+        query.append (" WHERE id = ? ");
 
-        /* SQL */
-        String query = " SELECT * FROM team " + 
-                       " WHERE id = ? ";
-
-        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement (query))
+        try (PreparedStatement preparedStatement = CONNECTION.prepareStatement (query.toString ()))
         {
             preparedStatement.setInt (1, id);
             
@@ -121,7 +126,7 @@ public class SelectExamples
             {
                 if (resultSet.next ())
                 {
-                    /* Fills */
+                    // Fills
                     team = new Team ();
                     team.setID (resultSet.getInt ("id"));
                     team.setName (resultSet.getString ("name"));
@@ -145,21 +150,20 @@ public class SelectExamples
         return team;
     }
     
-    /**
-     * Example of selects
-     * @param args 
-     */
+    //--------------------------------------------------------------------------------------//
+    
+    // Examples of use
     public static void main (String[] args)
     {
         try
         {
-            /* All records */
+            // All records
             System.out.println ("\n\n##### TEAMS #####");
             
             SelectExamples examples = new SelectExamples ();
             List<Team> teams = examples.selectAll ();
             
-            for (Team team : teams)
+            teams.forEach ((team) ->
             {
                 System.out.printf ("ID: %d \n", team.getID ());
                 System.out.printf ("Name: %s \n", team.getName ());
@@ -168,12 +172,12 @@ public class SelectExamples
                 System.out.printf ("Year of Foundation: %s \n", team.getYearFoundation ());
                 System.out.printf ("Stadium: %s \n", team.getStadium ());
                 System.out.printf ("Last Changed: %s \n", team.getLastChanged ());
-            }
+            });
 
             Thread.sleep (2000L);
             
             
-            /* Count */
+            // Count
             System.out.println ("\n\n##### COUNT #####");
             
             examples = new SelectExamples ();
@@ -184,7 +188,7 @@ public class SelectExamples
             Thread.sleep (2000L);
             
             
-            /* Record by ID*/
+            // Record by ID
             System.out.println ("\n\n##### RECORD BY ID #####");
             
             examples = new SelectExamples ();

@@ -13,15 +13,19 @@ import java.util.List;
 public class InsertExample
 {
     private final Connection CONNECTION;
+    
+    //--------------------------------------------------------------------------------------//
+    // CONSTRUCTORS
 
     public InsertExample ()
     {
         CONNECTION = new ConnectionExample ().getConnection ();
     }
+    
+    //--------------------------------------------------------------------------------------//
 
     /**
      * Insert one or more records on database
-     *
      * @param teams
      * @return
      * @throws java.sql.SQLException
@@ -29,16 +33,19 @@ public class InsertExample
     public boolean insert (List<Team> teams) throws SQLException
     {
         boolean executed = false;
+        
+        // SQL
+        StringBuilder query = new StringBuilder ();
+        query.append (" INSERT INTO team ");
+        query.append (" (name, city, country, year_foundation, stadium, last_changed) ");
+        query.append (" VALUES ");
+        query.append (" (?, ?, ?, ?, ?, ?) ");
 
-        /* SQL */
-        String query = " INSERT INTO team (name, city, country, year_foundation, stadium, last_changed) " + 
-                       " VALUES (?, ?, ?, ?, ?, ?) ";
-
-        try (PreparedStatement statement = CONNECTION.prepareStatement (query))
+        try (PreparedStatement statement = CONNECTION.prepareStatement (query.toString ()))
         {
             for (Team team : teams)
             {
-                /* Set parameters */
+                // Set parameters
                 statement.setString (1, team.getName ());
                 statement.setString (2, team.getCity ());
                 statement.setString (3, team.getCountry ());
@@ -48,7 +55,7 @@ public class InsertExample
                 statement.addBatch ();
             }
 
-            /* Result */
+            // Result
             int[] affectedRows = statement.executeBatch ();
             executed = (affectedRows.length == teams.size ());
         }
@@ -63,16 +70,15 @@ public class InsertExample
 
         return executed;
     }
+    
+    //--------------------------------------------------------------------------------------//
 
-    /**
-     * Example of multiples inserts
-     * @param args 
-     */
+    // Example of multiples inserts
     public static void main (String[] args)
     {
         try
         {
-            /* Data */
+            // Data
             Team liverpool = new Team ();
             liverpool.setName ("Liverpool");
             liverpool.setCity ("Liverpool");
@@ -105,17 +111,15 @@ public class InsertExample
             ajax.setStadium ("Amsterdam ArenA");
             ajax.setLastChanged (new Timestamp (System.currentTimeMillis ()));
 
-            /* List */
+            // List
             List<Team> teams = new ArrayList ();
             teams.add (liverpool);
             teams.add (milan);
             teams.add (realMadrid);
             teams.add (ajax);
 
-            /* Call */
             InsertExample example = new InsertExample ();
             boolean executed = example.insert (teams);
-            
             System.out.println ((executed ? "Teams inserted" : "Failed to insert"));
         }
         catch (SQLException e)

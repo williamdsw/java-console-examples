@@ -7,7 +7,14 @@ public class ClassUse
 {
     public static void main (String[] args)
     {
-        /* Instance and data */
+        showClassUse ();
+    }
+    
+    //--------------------------------------------------------------------------------------//
+
+    private static void showClassUse ()
+    {
+        // Instance and data
         Human human = new Human ();
         human.setFirstName ("Al");
         human.setLastName ("Simmons");
@@ -16,7 +23,7 @@ public class ClassUse
         human.setHeight (1.82);
         human.setWeight (80.00);
         
-        /* Show data */
+        // Show data
         System.out.println ("Name: " + human.getFullName ());
         System.out.println ("Age: " + human.getAge ());
         System.out.println ("Species: " + human.getSpecies ());

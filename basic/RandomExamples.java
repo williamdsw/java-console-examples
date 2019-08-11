@@ -7,34 +7,45 @@ import java.util.Random;
  */
 public class RandomExamples
 {
+    private static final int MAX_NUMBER_OF_OCORRENCES = 10;
+    
+    //--------------------------------------------------------------------------------------//
+    
     public static void main (String[] args)
+    {
+        testRandom ();
+    }
+    
+    //--------------------------------------------------------------------------------------//
+
+    private static void testRandom ()
     {
         Random random = new Random ();
         
-        /* Integer */
+        // Integer
         System.out.println ("\n===== 10 Random Integers =====");
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < MAX_NUMBER_OF_OCORRENCES; i++)
         {
             System.out.println (random.nextInt ());
         }
         
-        /* Long */
+        // Long
         System.out.println ("\n===== 10 Random Longs =====");
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < MAX_NUMBER_OF_OCORRENCES; i++)
         {
             System.out.println (random.nextLong ());
         }
         
-        /* Float */
+        // Float
         System.out.println ("\n===== 10 Random Floats =====");
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < MAX_NUMBER_OF_OCORRENCES; i++)
         {
             System.out.println (random.nextFloat ());
         }
         
-        /* Double */
+        // Double
         System.out.println ("\n===== 10 Random Doubles =====");
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < MAX_NUMBER_OF_OCORRENCES; i++)
         {
             System.out.println (random.nextDouble ());
         }

@@ -12,15 +12,19 @@ import java.util.List;
 public class DeleteExample
 {
     private final Connection CONNECTION;
+    
+    //--------------------------------------------------------------------------------------//
+    // CONSTRUCTORS
 
     public DeleteExample ()
     {
         CONNECTION = new ConnectionExample ().getConnection ();
     }
+    
+    //--------------------------------------------------------------------------------------//
 
     /**
      * Delete one or more records on database
-     *
      * @param IDs
      * @return
      * @throws java.sql.SQLException
@@ -29,11 +33,12 @@ public class DeleteExample
     {
         boolean executed = false;
 
-        /* SQL */
-        String query = " DELETE FROM team " + 
-                       " WHERE id = ? ";
+        // SQL
+        StringBuilder query = new StringBuilder ();
+        query.append (" DELETE FROM team ");
+        query.append (" WHERE id = ? ");
 
-        try (PreparedStatement statement = CONNECTION.prepareStatement (query))
+        try (PreparedStatement statement = CONNECTION.prepareStatement (query.toString ()))
         {
             for (Integer id : IDs)
             {
@@ -52,23 +57,20 @@ public class DeleteExample
 
         return executed;
     }
+    
+    //--------------------------------------------------------------------------------------//
 
-    /**
-     * Example of delete
-     *
-     * @param args
-     */
+    // Tests command
     public static void main (String[] args)
     {
         try
         {
-            /* Data */
+            // Data
             List<Integer> IDs = new ArrayList<> ();
             IDs.add (1);
             IDs.add (2);
             IDs.add (3);
 
-            /* Call */
             DeleteExample example = new DeleteExample ();
             boolean executed = example.delete (IDs);
 

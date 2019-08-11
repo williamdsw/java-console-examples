@@ -9,22 +9,25 @@ import java.sql.SQLException;
  */
 public class ConnectionExample
 {
-    /* Parameters */
+    // Parameters
     private final String SERVER = "localhost";
     private final String DATABASE = "database";
     private final String USER = "root";
     private final String PASSWORD = "root";
     private final String PORT = "3306";
     private final String URL = "jdbc:mysql://%s:%s/%s";
+    private final String MYSQL_JDBC_DRIVER_NAME = "com.mysql.jdbc.Driver";
     
     private Connection connection;
     
-    /* New instance */
+    //--------------------------------------------------------------------------------------//
+    // CONSTRUCTORS
+    
     public ConnectionExample ()
     {
         try
         {
-            Class.forName ("com.mysql.jdbc.Driver");
+            Class.forName (MYSQL_JDBC_DRIVER_NAME);
             connection = DriverManager.getConnection (getConnectionString (), USER, PASSWORD);
         }
         catch (ClassNotFoundException | SQLException e)
@@ -34,26 +37,31 @@ public class ConnectionExample
         }
     }
     
-    /* URL formatter */
-    private String getConnectionString ()
-    {
-        return String.format (URL, SERVER, PORT, DATABASE);
-    }
+    //--------------------------------------------------------------------------------------//
+    // GETTERS / SETTERS
     
-    /* Getter */
     public Connection getConnection ()
     {
         return this.connection;
     }
     
-    /* Test*/
+    //--------------------------------------------------------------------------------------//
+    
+    private String getConnectionString ()
+    {
+        return String.format (URL, SERVER, PORT, DATABASE);
+    }
+    
+    //--------------------------------------------------------------------------------------//
+    
+    // Test connection
     public static void main (String[] args)
     {
         try
         {
-            ConnectionExample dc = new ConnectionExample ();
+            ConnectionExample example = new ConnectionExample ();
         
-            if (!dc.getConnection ().isClosed ())
+            if (!example.getConnection ().isClosed ())
             {
                 System.out.println ("Connection opened successfully");
             }

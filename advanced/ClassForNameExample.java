@@ -10,18 +10,25 @@ public class ClassForNameExample
 {
     public static void main (String[] args)
     {
+        readClassInformation ();
+    }
+    
+    //--------------------------------------------------------------------------------------//
+
+    private static void readClassInformation ()
+    {
         try
         {
             Class<?> object = Class.forName ("java.lang.String");
             
-            /* Properties */
+            // Properties
             String name = object.getName ();
             String canonicalName = object.getCanonicalName ();
             String simpleName = object.getSimpleName ();
             String typeName = object.getTypeName ();
             String genericString = object.toGenericString ();
             
-            /* Output */
+            // Output
             System.out.println ("########## java.lang.String ##########");
             System.out.println ("Name: " + name);
             System.out.println ("Canonical Name: " + canonicalName);
@@ -30,7 +37,7 @@ public class ClassForNameExample
             System.out.println ("Generic String: " + genericString);
             System.out.println ("Package: " + object.getPackage ());
             
-            /* Fields */
+            // Fields
             System.out.println ("");
             System.out.println ("========== FIELDS ==========");
             
@@ -42,7 +49,7 @@ public class ClassForNameExample
                 System.out.println ("");
             }
             
-            /* Methods */
+            // Methods
             System.out.println ("");
             System.out.println ("========== METHODS ==========");
             

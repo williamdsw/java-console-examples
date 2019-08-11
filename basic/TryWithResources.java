@@ -11,11 +11,17 @@ import java.io.IOException;
  */
 public class TryWithResources
 {
+    private static final String FILE_PATH = "my-file.txt";
+    
+    //--------------------------------------------------------------------------------------//
+    
     public static void main (String[] args)
     {
         createFile ();
         readFile ();
     }
+    
+    //--------------------------------------------------------------------------------------//
     
     /**
      * Creates an file
@@ -24,19 +30,27 @@ public class TryWithResources
     {
         try
         {
-            /* Content */
+            // Content
             StringBuilder builder = new StringBuilder ();
             builder.append ("London Bridge is falling down,\n");
             builder.append ("Falling down, falling down.\n");
             builder.append ("London Bridge is falling down,\n");
             builder.append ("My fair lady.");
 
-            try (FileWriter writer = new FileWriter ("my-file.txt"))
+            try (FileWriter writer = new FileWriter (FILE_PATH))
             {
                 writer.append (builder);
             }
             
-            System.out.println ("File created");
+            // Checks
+            if (new File (FILE_PATH).exists ())
+            {
+                System.out.println ("File created");
+            }
+            else 
+            {
+                System.out.println ("Error on file's creation!");
+            }
         }
         catch (IOException e)
         {
@@ -50,8 +64,8 @@ public class TryWithResources
         {
             String line = "";
             
-            /* Read */
-            try (FileReader fileReader = new FileReader ("my-file.txt"))
+            // Read
+            try (FileReader fileReader = new FileReader (FILE_PATH))
             {
                 try (BufferedReader bufferedReader = new BufferedReader (fileReader))
                 {
@@ -62,10 +76,19 @@ public class TryWithResources
                 }
             }
             
-            /* Delete */
-            File file = new File ("my-file.txt");
+            // Delete
+            File file = new File (FILE_PATH);
             file.delete ();
-            System.out.println ("File readed and deleted.");
+            
+            // Checks
+            if (!new File (FILE_PATH).exists ())
+            {
+                System.out.println ("File readed and deleted.");
+            }
+            else 
+            {
+                System.out.println ("File readed but failed to delete.");
+            }
         }
         catch (IOException e)
         {

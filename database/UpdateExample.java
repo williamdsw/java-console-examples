@@ -13,15 +13,19 @@ import java.util.List;
 public class UpdateExample
 {
     private final Connection CONNECTION;
+    
+    //--------------------------------------------------------------------------------------//
+    // CONSTRUCTORS
 
     public UpdateExample ()
     {
         CONNECTION = new ConnectionExample ().getConnection ();
     }
+    
+    //--------------------------------------------------------------------------------------//
 
     /**
      * Update one or more records on database
-     *
      * @param teams
      * @return
      * @throws java.sql.SQLException
@@ -29,22 +33,23 @@ public class UpdateExample
     public boolean update (List<Team> teams) throws SQLException
     {
         boolean executed = false;
+        
+        // SQL
+        StringBuilder query = new StringBuilder ();
+        query.append (" UPDATE team ");
+        query.append (" SET name = ? ");
+        query.append ("     city = ?, ");
+        query.append ("     country = ?, ");
+        query.append ("     year_foundation = ?, ");
+        query.append ("     stadium = ?, ");
+        query.append ("     last_changed = ? ");
+        query.append (" WHERE id = ? ");
 
-        /* SQL */
-        String query = " UPDATE team " + 
-                       " SET name = ? " + 
-                       "     city = ?, " +
-                       "     country = ?, " + 
-                       "     year_foundation = ?, " + 
-                       "     stadium = ?, " + 
-                       "     last_changed = ? " + 
-                       " WHERE id = ? ";
-
-        try (PreparedStatement statement = CONNECTION.prepareStatement (query))
+        try (PreparedStatement statement = CONNECTION.prepareStatement (query.toString ()))
         {
             for (Team team : teams)
             {
-                /* Set parameters */
+                // Set parameters
                 statement.setString (1, team.getName ());
                 statement.setString (2, team.getCity ());
                 statement.setString (3, team.getCountry ());
@@ -55,7 +60,7 @@ public class UpdateExample
                 statement.addBatch ();
             }
 
-            /* Result */
+            // Result
             int[] affectedRows = statement.executeBatch ();
             executed = (affectedRows.length == teams.size ());
         }
@@ -70,17 +75,15 @@ public class UpdateExample
 
         return executed;
     }
+    
+    //--------------------------------------------------------------------------------------//
 
-    /**
-     * Example of update
-     *
-     * @param args
-     */
+    // Example of update
     public static void main (String[] args)
     {
         try
         {
-            /* Data */
+            // Data
             Team team = new Team ();
             team.setID (1);                         // see 'select' example
             team.setName ("Manchester United");
@@ -90,14 +93,12 @@ public class UpdateExample
             team.setStadium ("Old Trafford");
             team.setLastChanged (new Timestamp (System.currentTimeMillis ()));
            
-            /* List */
+            // List
             List<Team> teams = new ArrayList ();
             teams.add (team);
 
-            /* Call */
             UpdateExample example = new UpdateExample ();
             boolean executed = example.update (teams);
-
             System.out.println ((executed ? "Team updated" : "Failed to update"));
         }
         catch (SQLException e)

@@ -14,27 +14,23 @@ public class Team
     private Integer yearFoundation;
     private String stadium;
     private Timestamp lastChanged;
+    
+    //--------------------------------------------------------------------------------------//
+    // CONSTRUCTORS
 
     public Team () {}
+    
+    //--------------------------------------------------------------------------------------//
+    // GETTERS / SETTERS
 
     public Integer getID ()
     {
         return ID;
     }
-
-    public void setID (Integer value)
-    {
-        this.ID = value;
-    }
-
+    
     public String getName ()
     {
         return name;
-    }
-
-    public void setName (String value)
-    {
-        this.name = value;
     }
 
     public String getCity ()
@@ -42,19 +38,9 @@ public class Team
         return city;
     }
 
-    public void setCity (String value)
-    {
-        this.city = value;
-    }
-
     public String getCountry ()
     {
         return country;
-    }
-
-    public void setCountry (String value)
-    {
-        this.country = value;
     }
 
     public Integer getYearFoundation ()
@@ -62,24 +48,45 @@ public class Team
         return yearFoundation;
     }
 
-    public void setYearFoundation (Integer value)
-    {
-        this.yearFoundation = value;
-    }
-    
     public String getStadium ()
     {
         return stadium;
     }
 
-    public void setStadium (String value)
-    {
-        this.stadium = value;
-    }
-
     public Timestamp getLastChanged ()
     {
         return lastChanged;
+    }
+
+    
+    public void setID (Integer value)
+    {
+        this.ID = value;
+    }
+
+    public void setName (String value)
+    {
+        this.name = value;
+    }
+
+    public void setCity (String value)
+    {
+        this.city = value;
+    }
+    
+    public void setCountry (String value)
+    {
+        this.country = value;
+    }
+
+    public void setYearFoundation (Integer value)
+    {
+        this.yearFoundation = value;
+    }
+    
+    public void setStadium (String value)
+    {
+        this.stadium = value;
     }
 
     public void setLastChanged (Timestamp value)

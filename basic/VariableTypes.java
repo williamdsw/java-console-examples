@@ -7,6 +7,13 @@ public class VariableTypes
 {
     public static void main (String[] args)
     {
+        showVariableTypes ();
+    }
+    
+    //--------------------------------------------------------------------------------------//
+
+    private static void showVariableTypes ()
+    {
         byte myByte = 127;
         short myShort = 32767;
         int myInt = 2147483647;
@@ -17,7 +24,7 @@ public class VariableTypes
         char myChar = 'W';
         String myString = "William";
         
-        /* Wrappers */
+        // Wrappers
         Byte otherByte = 127;
         Short otherShort = 32767;
         Integer otherInteger = 2147483647;
@@ -37,7 +44,7 @@ public class VariableTypes
         System.out.println ("myChar: " + myChar);
         System.out.println ("myString: " + myString);
         
-        /* Wrappers */
+        // Wrappers
         System.out.println ("otherByte: " + otherByte);
         System.out.println ("otherShort: " + otherShort);
         System.out.println ("otherInt: " + otherInteger);
