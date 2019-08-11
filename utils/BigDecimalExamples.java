@@ -12,33 +12,40 @@ public class BigDecimalExamples
 {
     public static void main (String[] args)
     {
+        showBigDecimalExamples ();
+    }
+    
+    //--------------------------------------------------------------------------------------//
+
+    private static void showBigDecimalExamples ()
+    {
         BigDecimal decimal = new BigDecimal ("19.99");
         BigDecimal otherDecimal = new BigDecimal ("2.00");
         
-        /* Basic operations */
+        // Basic operations
         BigDecimal sum = decimal.add (otherDecimal);
         BigDecimal substract = decimal.subtract (otherDecimal);
         BigDecimal multiply = decimal.multiply (otherDecimal);
         BigDecimal divide = decimal.divide (otherDecimal);
         
-        /* Other operations */
+        // Other operations
         BigDecimal maximum = decimal.max (otherDecimal);
         BigDecimal minimum = decimal.min (otherDecimal);
         BigDecimal absolute = decimal.abs ();
         BigDecimal pow = decimal.pow (2);
         BigDecimal remainder = decimal.remainder (otherDecimal);
         
-        /* Other... */
+        // Helper functions
         Integer precision = decimal.precision ();
         Integer compareTo = decimal.compareTo (otherDecimal);
         
-        /* Currency format */
+        // Currencies formats
         BigDecimal anotherDecimal = new BigDecimal ("10400.99");
-        String real = NumberFormat.getCurrencyInstance ().format (anotherDecimal);
+        String brazilianReal = NumberFormat.getCurrencyInstance ().format (anotherDecimal);
         String dollar = NumberFormat.getCurrencyInstance (Locale.US).format (anotherDecimal);
         String pound = NumberFormat.getCurrencyInstance (Locale.UK).format (anotherDecimal);
         
-        /* Output */
+        // Output
         System.out.printf ("Decimal: %s \n", decimal);
         System.out.printf ("Other decimal: %s \n", otherDecimal);
         System.out.printf ("Sum: %s \n", sum);
@@ -55,7 +62,7 @@ public class BigDecimalExamples
         System.out.printf ("%s with other scale: %s \n", decimal, decimal.setScale (3, RoundingMode.UP));
         System.out.printf ("%s with other scale: %s \n", otherDecimal, otherDecimal.setScale (10, RoundingMode.UP));
         System.out.printf ("Another decimal: %s \n", anotherDecimal);
-        System.out.printf ("Another decimal formated to Real: %s \n", real);
+        System.out.printf ("Another decimal formated to Real: %s \n", brazilianReal);
         System.out.printf ("Another decimal formated to Dollar: %s \n", dollar);
         System.out.printf ("Another decimal formated to Pound: %s \n", pound);
     }
