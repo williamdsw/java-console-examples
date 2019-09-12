@@ -11,12 +11,12 @@ public class ConnectionExample
 {
     // Parameters
     private final String SERVER = "localhost";
-    private final String DATABASE = "database";
+    private final String DATABASE = "csharp_console_1";
     private final String USER = "root";
     private final String PASSWORD = "root";
     private final String PORT = "3306";
-    private final String URL = "jdbc:mysql://%s:%s/%s";
-    private final String MYSQL_JDBC_DRIVER_NAME = "com.mysql.jdbc.Driver";
+    private final String URL = "jdbc:mysql://%s:%s/%s?useTimezone=true&serverTimezone=UTC";
+    private final String MYSQL_JDBC_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     
     private Connection connection;
     
@@ -28,6 +28,7 @@ public class ConnectionExample
         try
         {
             Class.forName (MYSQL_JDBC_DRIVER_NAME);
+            System.out.println (getConnectionString ());
             connection = DriverManager.getConnection (getConnectionString (), USER, PASSWORD);
         }
         catch (ClassNotFoundException | SQLException e)
