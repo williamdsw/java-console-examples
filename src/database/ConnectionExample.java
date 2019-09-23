@@ -28,7 +28,6 @@ public class ConnectionExample
         try
         {
             Class.forName (MYSQL_JDBC_DRIVER_NAME);
-            System.out.println (getConnectionString ());
             connection = DriverManager.getConnection (getConnectionString (), USER, PASSWORD);
         }
         catch (ClassNotFoundException | SQLException e)
