@@ -16,7 +16,7 @@ public class ConnectionExample
     private final String PASSWORD = "root";
     private final String PORT = "3306";
     private final String URL = "jdbc:mysql://%s:%s/%s?useTimezone=true&serverTimezone=UTC";
-    private final String MYSQL_JDBC_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+    private final String JDBC_DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
     
     private Connection connection;
     
@@ -27,7 +27,7 @@ public class ConnectionExample
     {
         try
         {
-            Class.forName (MYSQL_JDBC_DRIVER_NAME);
+            Class.forName (JDBC_DRIVER_NAME);
             connection = DriverManager.getConnection (getConnectionString (), USER, PASSWORD);
         }
         catch (ClassNotFoundException | SQLException e)
